@@ -6,18 +6,16 @@ import javax.swing.*;
 
 public class TableActions extends JTable
 {
-	public static final String[] TYPES = { Action.ENTREE, Action.SORTIE };
+	public static final String[] CHOIX_TYPE = { Action.ENTREE, Action.SORTIE };
 
 	public TableActions(GrilleActionsModel model)
 	{
 		super(model);
 
-		// Create the combo box editor
-		JComboBox<String> comboBox = new JComboBox<>(TYPES);
-		DefaultCellEditor editor = new DefaultCellEditor(comboBox);
+		JComboBox<String> comboChoixType  = new JComboBox<>(CHOIX_TYPE);
+		DefaultCellEditor editorChoixType = new DefaultCellEditor(comboChoixType);
+		this.getColumnModel().getColumn(1).setCellEditor(editorChoixType);
 
-		// Assign the editor to the second column
-		this.getColumnModel().getColumn(1).setCellEditor(editor);
 		this.clearSelection();
 	}
 

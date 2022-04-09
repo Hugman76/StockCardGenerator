@@ -6,14 +6,15 @@ import java.util.Objects;
 public class Action
 {
 	public static final String[] TYPES = { "Stock initial", "Entrée", "Sortie" };
+
 	public static final String STOCK_INITIAL = TYPES[0];
-	public static final String ENTREE = TYPES[1];
-	public static final String SORTIE = TYPES[2];
+	public static final String ENTREE        = TYPES[1];
+	public static final String SORTIE        = TYPES[2];
 
 	private String type;
-	private Date date;
-	private int quantite;
-	private float prixUnitaire;
+	private Date   date;
+	private int    quantite;
+	private float  prixUnitaire;
 
 	public Action(String type, Date date, int quantite, float prixUnitaire) {
 		this.type = type;
@@ -24,6 +25,10 @@ public class Action
 
 	public Action(Action action) {
 		this(action.getType(), action.getDate(), action.getQuantite(), action.getPrixUnitaire());
+	}
+
+	public static Action creerDefaut() {
+		return new Action(Action.ENTREE, null, 1, 10);
 	}
 
 	public String getType() {

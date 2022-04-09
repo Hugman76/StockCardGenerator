@@ -51,11 +51,17 @@ public class GrilleActionsModel extends AbstractTableModel
 
 	@Override
 	public boolean isCellEditable(int lig, int col) {
-		return lig != 0 || col != 1;
+		// Bloquer le type du stock initial
+		if(lig == 0 && col == 1) return false;
+
+		// Bloquer le prix unitaire des sorties
+		if(Action.SORTIE == this.tabDonnees[lig][1] && col == 3) return false;
+
+		return true;
 	}
 
 	public void addRow() {
-		this.ctrl.getActions().add(new Action(Action.ENTREE, null, 1, 10));
+		this.ctrl.getActions().add(Action.creerDefaut());
 		this.refreshAllRows();
 	}
 
@@ -64,10 +70,6 @@ public class GrilleActionsModel extends AbstractTableModel
 			this.ctrl.getActions().remove(i);
 			this.refreshAllRows();
 		}
-	}
-
-	public void removeRow() {
-		this.removeRow(this.ctrl.getActions().size() - 1);
 	}
 
 	private void refreshAllRows() {
@@ -80,7 +82,9 @@ public class GrilleActionsModel extends AbstractTableModel
 			this.tabDonnees[lig][0] = action.getDate();
 			this.tabDonnees[lig][1] = action.getType();
 			this.tabDonnees[lig][2] = action.getQuantite();
-			this.tabDonnees[lig][3] = action.getPrixUnitaire();
+
+			if(Action.SORTIE == action.getType()) this.tabDonnees[lig][3] = null;
+			else                                  this.tabDonnees[lig][3] = action.getPrixUnitaire();
 		}
 		this.fireTableDataChanged();
 	}
@@ -99,6 +103,16 @@ public class GrilleActionsModel extends AbstractTableModel
 			this.ctrl.getActions().set(lig, action);
 			this.tabDonnees[lig][col] = value;
 			this.fireTableCellUpdated(lig, col);
+			if(value == Action.SORTIE) {
+				// Cacher le prix unitaire si la ligne devient une sortie
+				this.tabDonnees[lig][3] = null;
+				this.fireTableCellUpdated(lig, 3);
+			}
+			if(value == Action.ENTREE) {
+				// Refaire apparaître le prix unitaire si la ligne devient une entree
+				this.tabDonnees[lig][3] = action.getPrixUnitaire();
+				this.fireTableCellUpdated(lig, 3);
+			}
 		}
 	}
 }

@@ -3,10 +3,9 @@ package hugman.stock;
 import hugman.stock.action.Action;
 import hugman.stock.gui.FenetreActions;
 
+import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class Controlleur
 {
@@ -22,9 +21,10 @@ public class Controlleur
 		this.getActions().add(new Action(Action.STOCK_INITIAL, null, 1, 10));
 
 		FenetreActions fenetreActions = new FenetreActions(this);
-		fenetreActions.setName(NOM_APPLICATION);
+		fenetreActions.setTitle(NOM_APPLICATION);
 		fenetreActions.setVisible(true);
 		fenetreActions.pack();
+		fenetreActions.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
 	public List<Action> getActions() {
