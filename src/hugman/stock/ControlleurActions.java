@@ -1,6 +1,8 @@
 package hugman.stock;
 
 import hugman.stock.action.Action;
+import hugman.stock.fiche.FicheStock;
+import hugman.stock.fiche.LigneStock;
 import hugman.stock.gui.FenetreActions;
 
 import javax.swing.*;
@@ -29,5 +31,10 @@ public class ControlleurActions
 
 	public List<Action> getActions() {
 		return actions;
+	}
+
+	public FicheStock creerFicheStockFifo() {
+		ArrayList<LigneStock> lignes = new ArrayList<>();
+		return new FicheStock(lignes);
 	}
 }
