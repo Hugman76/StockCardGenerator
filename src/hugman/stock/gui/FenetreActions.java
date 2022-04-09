@@ -1,6 +1,6 @@
 package hugman.stock.gui;
 
-import hugman.stock.Controlleur;
+import hugman.stock.ControlleurActions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ public class FenetreActions extends JFrame
 {
 	private TableActions table;
 
-	public FenetreActions(Controlleur ctrl) {
+	public FenetreActions(ControlleurActions ctrl) {
 		this.table = new TableActions(new GrilleActionsModel(ctrl));
 		this.table.setFillsViewportHeight(true);
 

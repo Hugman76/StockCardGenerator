@@ -1,6 +1,6 @@
 package hugman.stock.gui;
 
-import hugman.stock.Controlleur;
+import hugman.stock.ControlleurActions;
 import hugman.stock.action.Action;
 
 import javax.swing.table.AbstractTableModel;
@@ -11,10 +11,10 @@ public class GrilleActionsModel extends AbstractTableModel
 {
 	private static final String[] COLONNES = {"Date", "Type d'action", "Quantité", "Prix unitaire"};
 
-	private Controlleur ctrl;
+	private ControlleurActions ctrl;
 	private Object[][] tabDonnees;
 
-	public GrilleActionsModel(Controlleur ctrl) {
+	public GrilleActionsModel(ControlleurActions ctrl) {
 		this.ctrl = ctrl;
 		this.refreshAllRows();
 	}

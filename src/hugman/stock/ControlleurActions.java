@@ -7,16 +7,16 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controlleur
+public class ControlleurActions
 {
 	private final List<Action> actions;
 	private static final String NOM_APPLICATION = "Inventaire Stockeur 3000";
 
 	public static void main(String[] args) {
-		Controlleur ctrl = new Controlleur();
+		ControlleurActions ctrl = new ControlleurActions();
 	}
 
-	public Controlleur() {
+	public ControlleurActions() {
 		this.actions = new ArrayList<>();
 		this.getActions().add(new Action(Action.STOCK_INITIAL, null, 1, 10));
 
