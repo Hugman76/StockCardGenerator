@@ -1,4 +1,4 @@
-package hugman.stock.gui;
+package hugman.stock.gui.table;
 
 import hugman.stock.ControlleurActions;
 import hugman.stock.action.Action;
@@ -55,24 +55,33 @@ public class GrilleActionsModel extends AbstractTableModel
 		if(lig == 0 && col == 1) return false;
 
 		// Bloquer le prix unitaire des sorties
-		if(Action.SORTIE == this.tabDonnees[lig][1] && col == 3) return false;
+		if(this.tabDonnees[lig][1].equals(Action.TYPES[Action.SORTIE]) && col == 3) return false;
 
 		return true;
 	}
 
-	public void addRow() {
+	public void addAction() {
 		this.ctrl.getActions().add(Action.creerDefaut());
 		this.refreshAllRows();
 	}
 
-	public void removeRow(int i) {
+	public void removeAction(int i) {
 		if(i > 0) {
 			this.ctrl.getActions().remove(i);
 			this.refreshAllRows();
 		}
 	}
 
-	private void refreshAllRows() {
+	public boolean moveAction(int i, int offset) {
+		int j = i + offset;
+		if(i <= 0 || j <= 0 || i >= this.ctrl.getActions().size() || j >= this.ctrl.getActions().size()) return false;
+		Action action = this.ctrl.getActions().get(i);
+		this.ctrl.getActions().remove(i);
+		this.ctrl.getActions().add(j, action);
+		return true;
+	}
+
+	public void refreshAllRows() {
 		List<Action> lstClients = ctrl.getActions();
 		this.tabDonnees = new Object[lstClients.size()][4];
 
@@ -80,10 +89,10 @@ public class GrilleActionsModel extends AbstractTableModel
 			Action action = lstClients.get(lig);
 
 			this.tabDonnees[lig][0] = action.getDate();
-			this.tabDonnees[lig][1] = action.getType();
+			this.tabDonnees[lig][1] = Action.TYPES[action.getType()];
 			this.tabDonnees[lig][2] = action.getQuantite();
 
-			if(Action.SORTIE == action.getType()) this.tabDonnees[lig][3] = null;
+			if(action.getType() == Action.SORTIE) this.tabDonnees[lig][3] = null;
 			else                                  this.tabDonnees[lig][3] = action.getPrixUnitaire();
 		}
 		this.fireTableDataChanged();
@@ -103,12 +112,12 @@ public class GrilleActionsModel extends AbstractTableModel
 			this.ctrl.getActions().set(lig, action);
 			this.tabDonnees[lig][col] = value;
 			this.fireTableCellUpdated(lig, col);
-			if(value == Action.SORTIE) {
+			if(Action.TYPES[Action.SORTIE].equals(value)) {
 				// Cacher le prix unitaire si la ligne devient une sortie
 				this.tabDonnees[lig][3] = null;
 				this.fireTableCellUpdated(lig, 3);
 			}
-			if(value == Action.ENTREE) {
+			if(Action.TYPES[Action.ENTREE].equals(value)) {
 				// Refaire apparaître le prix unitaire si la ligne devient une entree
 				this.tabDonnees[lig][3] = action.getPrixUnitaire();
 				this.fireTableCellUpdated(lig, 3);

@@ -1,4 +1,4 @@
-package hugman.stock.gui;
+package hugman.stock.gui.table;
 
 import hugman.stock.action.Action;
 
@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class TableActions extends JTable
 {
-	public static final String[] CHOIX_TYPE = { Action.ENTREE, Action.SORTIE };
+	public static final String[] CHOIX_TYPE = { Action.TYPES[Action.ENTREE], Action.TYPES[Action.SORTIE] };
 
 	public TableActions(GrilleActionsModel model)
 	{
