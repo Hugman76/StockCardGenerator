@@ -1,6 +1,7 @@
-package hugman.stock.fiche.file;
+package me.hugman.accounting_tools.stock.gui;
 
-import hugman.stock.fiche.Fiche;
+import me.hugman.accounting_tools.stock.card.StockCard;
+import me.hugman.accounting_tools.stock.card.format.CSVFormatter;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -13,12 +14,12 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
-public class FicheStockFileChooser extends JFileChooser
+public class StockCardFileChooser extends JFileChooser
 {
-	private final Fiche fiche;
+	private final StockCard stockCard;
 
-	public FicheStockFileChooser(Fiche fiche) {
-		this.fiche = fiche;
+	public StockCardFileChooser(StockCard stockCard) {
+		this.stockCard = stockCard;
 	}
 
 	@Override
@@ -65,15 +66,15 @@ public class FicheStockFileChooser extends JFileChooser
 	public void showDialogAndSave(Component parent) {
 		int userSelection = this.showSaveDialog(parent);
 
-		if (userSelection == JFileChooser.APPROVE_OPTION) {
+		if(userSelection == JFileChooser.APPROVE_OPTION) {
 			this.saveToFile();
 		}
 	}
 
 	public void saveToFile() {
-		String output = CSVFormatter.format(fiche, ';');
+		String output = new CSVFormatter(';').format(stockCard);
 		File fileToSave = this.getSelectedFile();
-		try{
+		try {
 			fileToSave.createNewFile();
 			FileOutputStream fos = new FileOutputStream(fileToSave);
 			OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
