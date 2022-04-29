@@ -3,6 +3,8 @@ package me.hugman.accounting_tools.stock.gui;
 import me.hugman.accounting_tools.stock.ActionManager;
 import me.hugman.accounting_tools.stock.card.StockCard;
 import me.hugman.accounting_tools.stock.card.StockCardGenerator;
+import me.hugman.accounting_tools.stock.card.file_format.StockCardFileFormat;
+import me.hugman.accounting_tools.stock.card.file_format.StockCardFileFormats;
 import me.hugman.accounting_tools.stock.gui.table.ActionTable;
 import me.hugman.accounting_tools.stock.gui.table.ActionTableModel;
 
@@ -18,14 +20,6 @@ import java.util.Arrays;
 public class ActionFrame extends JFrame
 {
 	private ActionManager manager;
-	private final ActionListener exportListener = e -> {
-		StockCard stockCard = StockCardGenerator.createFIFO(this.manager.getActions());
-
-		StockCardFileChooser fc = new StockCardFileChooser(stockCard);
-		fc.setDialogTitle("Exporter la fiche de stock sous...");
-		fc.setFileFilter(new FileNameExtensionFilter("CSV", "csv"));
-		fc.showDialogAndSave(this);
-	};
 	private ActionTable table;
 	private final ActionListener addListener = e -> this.table.getModel().addAction();
 	private final ActionListener removeListener = e -> {
@@ -80,6 +74,13 @@ public class ActionFrame extends JFrame
 				this.table.addRowSelectionInterval(row, row);
 			}
 		}
+	};
+	private final ActionListener exportListener = e -> {
+		StockCard stockCard = StockCardGenerator.createACM(this.manager.getActions());
+
+		StockCardFileChooser fc = new StockCardFileChooser(stockCard);
+		fc.setDialogTitle("Exporter la fiche de stock sous...");
+		fc.showDialogAndSave(this);
 	};
 
 	public ActionFrame(ActionManager manager) {
@@ -141,7 +142,7 @@ public class ActionFrame extends JFrame
 		itmAdd.addActionListener(this.addListener);
 		itmRemove.addActionListener(this.removeListener);
 		itmMoveUp.addActionListener(this.moveUpListener);
-		itmMoveDown.addActionListener(this.exportListener);
+		itmMoveDown.addActionListener(this.moveDownListener);
 		menuEdit.add(itmAdd);
 		menuEdit.add(itmRemove);
 		menuEdit.add(itmMoveUp);

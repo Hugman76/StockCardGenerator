@@ -21,10 +21,17 @@ public class ActionManager
 		//this.getActions().add(new Action(Action.STOCK_INITIAL, null, 1, 10));
 
 		// tests
-		this.getActions().add(Action.createInitialStock(new Date(2022 - 1900, Calendar.APRIL, 1), 30, 50.00F));
-		this.getActions().add(Action.createOutput(new Date(2022 - 1900, Calendar.APRIL, 2), 10));
-		this.getActions().add(Action.createInput(new Date(2022 - 1900, Calendar.APRIL, 7), 20, 60.00F));
-		this.getActions().add(Action.createOutput(new Date(2022 - 1900, Calendar.APRIL, 14), 35));
+		// this.getActions().add(Action.createInitialStock(new Date(2022 - 1900, Calendar.APRIL, 1), 30, 50.00F));
+		// this.getActions().add(Action.createOutput(new Date(2022 - 1900, Calendar.APRIL, 2), 10));
+		// this.getActions().add(Action.createInput(new Date(2022 - 1900, Calendar.APRIL, 7), 20, 60.00F));
+		// this.getActions().add(Action.createOutput(new Date(2022 - 1900, Calendar.APRIL, 14), 35));
+
+		this.getActions().add(Action.createInitialStock(new Date(2022 - 1900, Calendar.MAY, 4), 25, 900.00F));
+		this.getActions().add(Action.createOutput(new Date(2022 - 1900, Calendar.MAY, 9), 15));
+		this.getActions().add(Action.createInput(new Date(2022 - 1900, Calendar.MAY, 18), 70, 975.00F));
+		this.getActions().add(Action.createOutput(new Date(2022 - 1900, Calendar.MAY, 24), 20));
+		this.getActions().add(Action.createOutput(new Date(2022 - 1900, Calendar.MAY, 30), 30));
+		this.getActions().add(Action.createInput(new Date(2022 - 1900, Calendar.MAY, 30), 15, 930.00F));
 	}
 
 	public List<Action> getActions() {

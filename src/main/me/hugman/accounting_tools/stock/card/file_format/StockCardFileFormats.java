@@ -1,10 +1,15 @@
-package me.hugman.accounting_tools.stock.card.format;
+package me.hugman.accounting_tools.stock.card.file_format;
 
+import me.hugman.accounting_tools.stock.ActionManager;
 import me.hugman.accounting_tools.stock.card.StockCard;
 
-public record CSVFormatter(char delimiter) implements Formatter
+import java.util.ArrayList;
+import java.util.List;
+
+public class StockCardFileFormats
 {
-	public String format(StockCard card) {
+	public static final List<StockCardFileFormat> FORMATS = new ArrayList<>();
+	public static final StockCardFileFormat CSV = register("CSV", card -> {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Fiche de stocks%%%%%%%%%\n");
 		sb.append("Date%Entrées%%%Sorties%%%Stocks%%\n");
@@ -16,6 +21,12 @@ public record CSVFormatter(char delimiter) implements Formatter
 			}
 			sb.append("\n");
 		}
-		return sb.toString().replace('%', this.delimiter);
+		return sb.toString().replace("%", ActionManager.PREFERENCES.get("delimiter", ";"));
+	}, "csv");
+
+	public static StockCardFileFormat register(String name, StockCardFileFormat.Formatter executor, String... extensions) {
+		StockCardFileFormat format = new StockCardFileFormat(name, executor, List.of(extensions));
+		FORMATS.add(format);
+		return format;
 	}
 }
