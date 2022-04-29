@@ -1,16 +1,18 @@
-package me.hugman.accounting_tools.stock.card;
+package me.hugman.acctools.action.stock_card;
 
-import me.hugman.accounting_tools.stock.action.Action;
+import me.hugman.acctools.action.Action;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockCardGenerator
+public class StockCardMethods
 {
+	public static final String[] NAMES = new String[]{"FIFO", "ACM"};
+
 	/**
 	 * <a href="https://en.wikipedia.org/wiki/FIFO_and_LIFO_accounting#FIFO">First-in, first-out method</a>
 	 */
-	public static StockCard createFIFO(List<Action> actions) throws IllegalStateException {
+	public static StockCard toFifo(List<Action> actions) throws IllegalStateException {
 		ArrayList<StockCard.Line> lines = new ArrayList<>();
 		ArrayList<StockCard.Cell> stocks = new ArrayList<>();
 		for(Action action : actions) {
@@ -67,7 +69,7 @@ public class StockCardGenerator
 	/**
 	 * <a href="https://en.wikipedia.org/wiki/Average_cost_method">Average cost method</a>
 	 */
-	public static StockCard createACM(List<Action> actions) throws IllegalStateException {
+	public static StockCard toAcm(List<Action> actions) throws IllegalStateException {
 		ArrayList<StockCard.Line> lines = new ArrayList<>();
 		StockCard.Cell stock = null;
 		for(Action action : actions) {

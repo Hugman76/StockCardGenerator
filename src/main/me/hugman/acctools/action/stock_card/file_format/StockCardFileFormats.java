@@ -1,7 +1,7 @@
-package me.hugman.accounting_tools.stock.card.file_format;
+package me.hugman.acctools.action.stock_card.file_format;
 
-import me.hugman.accounting_tools.stock.ActionManager;
-import me.hugman.accounting_tools.stock.card.StockCard;
+import me.hugman.acctools.action.ActionManager;
+import me.hugman.acctools.action.stock_card.StockCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class StockCardFileFormats
 			}
 			sb.append("\n");
 		}
-		return sb.toString().replace("%", ActionManager.PREFERENCES.get("delimiter", ";"));
+		return sb.toString().replace("%", ActionManager.PREFERENCES.get(ActionManager.DELIMITER_PREFERENCE, ";"));
 	}, "csv");
 
 	public static StockCardFileFormat register(String name, StockCardFileFormat.Formatter executor, String... extensions) {

@@ -1,15 +1,13 @@
-package me.hugman.accounting_tools.stock.gui;
+package me.hugman.acctools.action.ui;
 
-import me.hugman.accounting_tools.stock.ActionManager;
-import me.hugman.accounting_tools.stock.card.StockCard;
-import me.hugman.accounting_tools.stock.card.StockCardGenerator;
-import me.hugman.accounting_tools.stock.card.file_format.StockCardFileFormat;
-import me.hugman.accounting_tools.stock.card.file_format.StockCardFileFormats;
-import me.hugman.accounting_tools.stock.gui.table.ActionTable;
-import me.hugman.accounting_tools.stock.gui.table.ActionTableModel;
+import me.hugman.acctools.Main;
+import me.hugman.acctools.action.ActionManager;
+import me.hugman.acctools.action.stock_card.StockCard;
+import me.hugman.acctools.action.stock_card.StockCardMethods;
+import me.hugman.acctools.action.ui.table.ActionTable;
+import me.hugman.acctools.action.ui.table.ActionTableModel;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,11 +74,15 @@ public class ActionFrame extends JFrame
 		}
 	};
 	private final ActionListener exportListener = e -> {
-		StockCard stockCard = StockCardGenerator.createACM(this.manager.getActions());
+		StockCard stockCard = StockCardMethods.toAcm(this.manager.getActions());
 
 		StockCardFileChooser fc = new StockCardFileChooser(stockCard);
 		fc.setDialogTitle("Exporter la fiche de stock sous...");
 		fc.showDialogAndSave(this);
+	};
+	private final ActionListener settingsListener = e -> {
+		SettingsFrame frame = new SettingsFrame(this);
+		frame.setVisible(true);
 	};
 
 	public ActionFrame(ActionManager manager) {
@@ -114,6 +116,11 @@ public class ActionFrame extends JFrame
 		this.add(panRight, BorderLayout.EAST);
 	}
 
+	public void exit() {
+		this.dispose();
+		Main.MAIN_MENU.setVisible(true);
+	}
+
 	public JMenuBar creerBarreMenu() {
 		JMenuBar barre = new JMenuBar();
 
@@ -125,11 +132,18 @@ public class ActionFrame extends JFrame
 		barre.add(menuTools);
 
 		JMenuItem itmNew = new JMenuItem("Nouveau", KeyEvent.VK_N);
-		JMenuItem itmLoad = new JMenuItem("Ouvrir", KeyEvent.VK_O);
+		JMenuItem itmLoad = new JMenuItem("Ouvrir", KeyEvent.VK_L);
 		JMenuItem itmSave = new JMenuItem("Enregistrer", KeyEvent.VK_S);
+		JMenuItem itmExit = new JMenuItem("Quitter", KeyEvent.VK_E);
+		itmNew.addActionListener(e -> {
+			this.manager.resetActions();
+			this.table.getModel().refreshAllRows();
+		});
+		itmExit.addActionListener(e -> this.exit());
 		menuFile.add(itmNew);
 		menuFile.add(itmLoad);
 		menuFile.add(itmSave);
+		menuFile.add(itmExit);
 
 		JMenuItem itmAdd = new JMenuItem("Ajouter", KeyEvent.VK_A);
 		JMenuItem itmRemove = new JMenuItem("Supprimer", KeyEvent.VK_S);
@@ -148,9 +162,13 @@ public class ActionFrame extends JFrame
 		menuEdit.add(itmMoveUp);
 		menuEdit.add(itmMoveDown);
 
+		JMenuItem itmSettings = new JMenuItem("Paramètres", KeyEvent.VK_P);
 		JMenuItem itmExport = new JMenuItem("Exporter la fiche de stocks", KeyEvent.VK_E);
+		itmSettings.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
 		itmExport.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+		itmSettings.addActionListener(this.settingsListener);
 		itmExport.addActionListener(this.exportListener);
+		menuTools.add(itmSettings);
 		menuTools.add(itmExport);
 
 		return barre;

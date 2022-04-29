@@ -1,4 +1,4 @@
-package me.hugman.accounting_tools.stock.action;
+package me.hugman.acctools.action;
 
 import java.util.Date;
 

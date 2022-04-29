@@ -1,8 +1,8 @@
-package me.hugman.accounting_tools.stock.gui;
+package me.hugman.acctools.action.ui;
 
-import me.hugman.accounting_tools.stock.card.StockCard;
-import me.hugman.accounting_tools.stock.card.file_format.StockCardFileFormat;
-import me.hugman.accounting_tools.stock.card.file_format.StockCardFileFormats;
+import me.hugman.acctools.action.stock_card.StockCard;
+import me.hugman.acctools.action.stock_card.file_format.StockCardFileFormat;
+import me.hugman.acctools.action.stock_card.file_format.StockCardFileFormats;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;

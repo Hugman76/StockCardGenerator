@@ -1,7 +1,7 @@
-package me.hugman.accounting_tools.stock.gui.table;
+package me.hugman.acctools.action.ui.table;
 
-import me.hugman.accounting_tools.stock.ActionManager;
-import me.hugman.accounting_tools.stock.action.Action;
+import me.hugman.acctools.action.ActionManager;
+import me.hugman.acctools.action.Action;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Date;

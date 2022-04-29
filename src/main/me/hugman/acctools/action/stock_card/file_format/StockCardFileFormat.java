@@ -1,6 +1,6 @@
-package me.hugman.accounting_tools.stock.card.file_format;
+package me.hugman.acctools.action.stock_card.file_format;
 
-import me.hugman.accounting_tools.stock.card.StockCard;
+import me.hugman.acctools.action.stock_card.StockCard;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.util.List;

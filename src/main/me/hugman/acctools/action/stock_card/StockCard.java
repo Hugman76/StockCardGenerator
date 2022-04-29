@@ -1,4 +1,4 @@
-package me.hugman.accounting_tools.stock.card;
+package me.hugman.acctools.action.stock_card;
 
 import java.util.ArrayList;
 import java.util.Date;
